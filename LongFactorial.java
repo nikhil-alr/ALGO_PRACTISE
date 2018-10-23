@@ -1,3 +1,5 @@
+package com.company;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +11,8 @@ public class LongFactorial {
 
     public static void main(String args[])
     {
-        System.out.print("Extra lon fact");
-        int value = 11;
+        //System.out.print("Extra lon fact");
+        int value = 27;
         extraLongFact(value);
     }
 
@@ -60,6 +62,8 @@ public class LongFactorial {
                 value = value/10;
             }
         }
+
+
     }
 
     static void findFact(int value)
@@ -70,7 +74,7 @@ for (int i = 0;i<arrayList.size();i++)
 {
     int calculateVal = ((arrayList.get(i))*value)+carry;
     carry = 0;
-    if(calculateVal>10)
+    if(calculateVal>=10)
     {
         int tmpValueStore = calculateVal%10;
         carry = calculateVal/10;
@@ -88,7 +92,7 @@ if (carry>0) {
 }
         arrayList.clear();
         arrayList = arrayListNew;
-        printFact();
+        //printFact();
     }
 
     static void printFact()
