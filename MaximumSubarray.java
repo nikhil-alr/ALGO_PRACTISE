@@ -2,34 +2,34 @@ package com.company;
 
 public class MaximumSubarray {
 
-    public static int array[] = {-8,-1,4,1,-3,3,0};
+    public static int array[] = {-8,-1,4,1,-1,3,0};
     public static int maxSubArray = Integer.MIN_VALUE;
     public static void main(String args[])
     {
-        useLinearAlgo(0,array.length);
-        System.out.print(maxSubArray);
+        int tmp[] = useDivAndConcure(0,array.length-1);
+        System.out.print(tmp[0]);
     }
 
 
     //=========================Old Brute Force required part===================
     public static void useOldBruteForce(int start,int end)
     {
-for (int i=start;i<=end;i++)
-{
+        for (int i=start;i<=end;i++)
+        {
 
-  int chunk = (array.length-1);
-    for (int j=i;j<=chunk;j++)
-    {
-        int localSum = 0;
-    for (int k=i;k<=j;k++) {
-            localSum += array[k];
+            int chunk = (array.length-1);
+            for (int j=i;j<=chunk;j++)
+            {
+                int localSum = 0;
+                for (int k=i;k<=j;k++) {
+                    localSum += array[k];
+                }
+                if (localSum>maxSubArray)
+                {
+                    maxSubArray = localSum;
+                }
+            }
         }
-if (localSum>maxSubArray)
-{
-    maxSubArray = localSum;
-}
-        }
-}
     }
     //=========================Old Brute Force required part===================
 
@@ -75,71 +75,66 @@ if (localSum>maxSubArray)
     //========================= Linear required part===================
 
 
-  //========================= Div and concure required part===================
+    //========================= Div and concure required part===================
     public static int[] useDivAndConcure(int start,int end)
     {
 
-if(start>=end)
-{
-    int tmpArray[] = {array[start],0};
-    return tmpArray;
-}
-    int mid = (start+end)/2;
-    int lsa[] = useDivAndConcure(start,mid);
-    int rsa[] = useDivAndConcure(mid+1,end);
-    int lcrossover = crossover(start,mid,mid);
-    int rcorssover = crossover(mid+1,mid,end);
-    int totalCroover =  crossover(start,mid,end);
-        int tmpArray[] = new int[2];
+        int maxSubarray[] = {0};
 
-    if(totalCroover>=rcorssover&&totalCroover>=lcrossover)
-    {
-        tmpArray[0] = lcrossover;
-        tmpArray[1] = rcorssover;
-    }
-    else
-    {
-        if (rcorssover>totalCroover&&rcorssover>lcrossover)
+        if(start>=end)
         {
-            tmpArray[0] = rcorssover;
-            tmpArray[1] = 0;
+            int tmpArray[] = {array[start]};
+            return tmpArray;
         }
+        int mid = (start+end)/2;
+        int lsa[] = useDivAndConcure(start,mid);
+        int rsa[] = useDivAndConcure(mid+1,end);
+        int totalCroover =  crossover(start,mid,end);
+
+        if (lsa[0]>=totalCroover &&lsa[0]>=rsa[0])
+            maxSubarray[0] = lsa[0];
+
+        if (rsa[0]>=totalCroover &&rsa[0]>=lsa[0])
+            maxSubarray[0] = rsa[0];
+
         else
-        {
-            tmpArray[0] = lcrossover;
-            tmpArray[1] = rcorssover;
-        }
+            maxSubarray[0] = totalCroover;
+
+
+        return maxSubarray;
     }
 
 
 
-
-        return tmpArray;
-    }
-
-    static public int crossover(int start,int mid,int end)
+    public static int crossover(int start,int mid,int end)
     {
-//        int localSum = 0;
-//        for(int i=start;i<=end;i++)
-//        {
-//           int oldLocalSum = localSum;
-//                localSum = localSum+array[i];
-//
-//            if (localSum>maxSubArray)
-//                maxSubArray = localSum;
-//
-//            if (localSum<array[i])
-//            {
-//                localSum = oldLocalSum;
-//            }
-//
-//        }
+        int crossover = 0;
 
+        int leftCrossover = Integer.MIN_VALUE;
+        int rightCrossover = Integer.MIN_VALUE;
+        int tmpAddition = 0;
+        for(int i=mid;i>=start;i--)
+        {
+            tmpAddition = tmpAddition+array[i];
+            if(leftCrossover<tmpAddition)
+                leftCrossover = tmpAddition;
+        }
 
-        return 0;
+        tmpAddition = 0;
+        for(int i=mid+1;i<=end;i++)
+        {
+            tmpAddition = tmpAddition+array[i];
+            if(rightCrossover<tmpAddition)
+                rightCrossover = tmpAddition;
+        }
+
+        crossover = leftCrossover+rightCrossover;
+
+        return crossover;
+
     }
 
-  //========================= Div and concure required part===================
+    //========================= Div and concure required part===================
 
 
 
