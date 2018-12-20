@@ -1,6 +1,12 @@
 package com.company;
 
 
+//TODO : insert at specfic position error
+//TODO : delete at specfic position error if insert at start and end
+//TODO : continous delete from start and end have to fix
+
+
+
 
 public class DoublyLinkedList {
 
@@ -12,23 +18,40 @@ public class DoublyLinkedList {
 
         doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
 
+        doublyLinkList.insert(DoublyLinkList.END,1);
         doublyLinkList.insert(DoublyLinkList.END,2);
-        doublyLinkList.insert(DoublyLinkList.END,3);
-        doublyLinkList.insert(DoublyLinkList.END,4);
-        doublyLinkList.insert(DoublyLinkList.END,5);
+        doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
+        //doublyLinkList.insert(1,15);
+
+        doublyLinkList.delete(DoublyLinkList.STRAIGHT_ORDER);
 
         System.out.println("");
         doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
-        System.out.println("");
-        doublyLinkList.displayList(DoublyLinkList.REVRSE_ORDER);
-        doublyLinkList.update(2,60);
-        doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
+//        doublyLinkList.insert(DoublyLinkList.START,1);
+//        doublyLinkList.insert(DoublyLinkList.START,2);
+//        doublyLinkList.insert(DoublyLinkList.START,3);
+//        doublyLinkList.insert(DoublyLinkList.START,4);
+//        doublyLinkList.insert(DoublyLinkList.START,5);
+//        doublyLinkList.displayList(DoublyLinkList.REVRSE_ORDER);
+//        System.out.println("");
+//
+//        doublyLinkList.delete(DoublyLinkList.START);
+//        doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
+//        doublyLinkList.delete(DoublyLinkList.END);
+//        doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
+//
+//        doublyLinkList.delete(1);
+//        doublyLinkList.displayList(DoublyLinkList.STRAIGHT_ORDER);
+
+
+
+
+
+
+
 
 
     }
-
-
-
 
 
 }
@@ -87,14 +110,14 @@ class DoublyLinkList
                 end = newNode;
                 break;
        default:
-        //TODO fix insert at specfic postion also mannage start case
+
         if (insertAt<0||insertAt>length) {
                     System.out.println("Item can't insert here");
                         return;
 
                     }
                         Node node = start;
-                        while (insertAt == 0) {
+                        while (insertAt > 0) {
                             node = node.nextNode;
                             insertAt -= 1;
                         }
@@ -130,16 +153,49 @@ class DoublyLinkList
     public void delete(int from)
     {
 
-//TODO make delete module
         switch (from)
         {
             case START:
+
+               start =  start.nextNode;
+               start.prevNode = null;
+
             break;
             case END:
+                end =  end.prevNode;
+                end.nextNode = null;
                 break;
                 default:
+                    if (from<0||from>length) {
+                        System.out.println("Item can't delete from here");
+                        return;
+
+                    }
+                    Node node = start;
+                    while (from > 0) {
+                        node = node.nextNode;
+                        from -= 1;
+                    }
+
+                    Node tmpNode = node.nextNode;
+                    if (tmpNode==null) {
+                        end = node.prevNode;
+                    }
+                    else
+                    {
+                        node.prevNode.nextNode = node.nextNode;
+                        node.nextNode.prevNode = node.prevNode;
+
+                    }
+
+
+
+
 
         }
+
+
+
 
         length -= 1;
     }
