@@ -1,22 +1,43 @@
+import java.util.HashMap;
+
 public class FibonicSequance {
 
     public static void main(String args[])
     {
 
-        int newItem = 1;
-        int oldItem = 0;
-        int i=0;
+        a aa = new a();
+        a b = new a();
+        a c = new a();
+        a d = new a();
 
-        System.out.println(newItem);
-        while(i<10)
-        {
-            int newCalItem = newItem+oldItem;
-             System.out.println(newCalItem);
-            oldItem = newItem;
-            newItem = newCalItem;
-            i+=1;
-        }
+
+        HashMap a = new HashMap();
+        a.put(aa,"dddss");
+        a.put(b,"dddeee");
+        a.put(c,"dddas");
+        a.put(d,"dddeee");
+
+       System.out.print(a.size());
+       System.out.print(a.get(new a()));
 
     }
+
+
+
+}
+
+class a
+{
+
+
+    @Override
+    public int hashCode() {
+
+        return 1;
+    }
+
+    int a = 10;
+    int b = 20;
+    String aa= "ss";
 
 }
