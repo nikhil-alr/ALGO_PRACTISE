@@ -23,10 +23,8 @@ public class RecursiveInsertionSort {
                 shiftArray(position);
             }
             insertionSort(position+1);
-
-        }
-
-    }
+       }
+   }
 
     public static void shiftArray(int position)
     {
